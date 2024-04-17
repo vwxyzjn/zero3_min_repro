@@ -25,3 +25,27 @@ Feel free to check the logs. I tested with the following dependency version
 {'transformers': '4.39.3', 'accelerate': '0.29.3', 'deepspeed': '0.14.1', 'datasets': '2.18.0'}
 ```
 
+When not using deepspeed, the test passes
+
+```
+{'transformers': '4.39.3', 'accelerate': '0.29.3', 'deepspeed': '0.14.1', 'datasets': '2.18.0'}
+(ref_logprob-logprob).exp().mean()=tensor(1.0000, device='cuda:0')
+```
+
+When using deepspeed 2 or 3, the test fails
+
+
+```
+(ref_logprob-logprob).exp().mean()=tensor(1.1328, device='cuda:0', dtype=torch.bfloat16)
+Traceback (most recent call last):
+  File "/fsx/costa/zero3_min_repro/min_repro.py", line 157, in <module>
+    torch.testing.assert_close(ref_logprob, logprob, rtol=1e-2, atol=1e-2) # a very generous tolerance
+  File "/fsx/costa/zero3_min_repro/.venv/lib/python3.10/site-packages/torch/testing/_comparison.py", line 1520, in assert_close
+    raise error_metas[0].to_error(msg)
+AssertionError: Tensor-likes are not close!
+
+Mismatched elements: 2603 / 3200 (81.3%)
+Greatest absolute difference: 14.5 at index (53, 15) (up to 0.01 allowed)
+Greatest relative difference: 2416.0 at index (21, 28) (up to 0.01 allowed)
+```
+
