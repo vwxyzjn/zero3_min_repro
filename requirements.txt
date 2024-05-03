@@ -223,7 +223,7 @@ torch==2.2.2
     # via
     #   accelerate
     #   deepspeed
-tqdm==4.66.2
+tqdm==4.66.3
     # via
     #   datasets
     #   deepspeed
