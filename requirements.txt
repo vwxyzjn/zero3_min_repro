@@ -247,7 +247,7 @@ urllib3==2.2.1
     #   requests
     #   sentry-sdk
 wandb==0.12.16
-werkzeug==3.0.2
+werkzeug==3.0.3
     # via tensorboard
 xxhash==3.4.1
     # via datasets
